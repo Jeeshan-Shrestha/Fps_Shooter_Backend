@@ -10,16 +10,20 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.game.SoloFighter.jwt.JwtAuthFilter;
 import com.game.SoloFighter.services.MyUserDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final JwtAuthFilter jwtAuthFilter;
     private final MyUserDetailsService myUserDetailsService;
 
-    public SecurityConfig(MyUserDetailsService myUserDetailsService){
+    public SecurityConfig(MyUserDetailsService myUserDetailsService,JwtAuthFilter jwtAuthFilter){
         this.myUserDetailsService = myUserDetailsService;
+        this.jwtAuthFilter = jwtAuthFilter;
     }
     
     @Bean
@@ -27,6 +31,7 @@ public class SecurityConfig {
         return http
         .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
         .csrf(c -> c.disable())
+        .addFilterBefore(jwtAuthFilter,UsernamePasswordAuthenticationFilter.class)
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .build();
     }
