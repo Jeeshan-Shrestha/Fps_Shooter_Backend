@@ -17,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtils {
 
-    final private String secretKey = "change-this-shit-later-dumass";
+    final private String secretKey = "change-this-shit-later-dumass-sdkfjhskdfjhalksdjfhlakjsdfhlkjashfdjhlk";
     final private SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
     public String generateToken(Users userDetails){

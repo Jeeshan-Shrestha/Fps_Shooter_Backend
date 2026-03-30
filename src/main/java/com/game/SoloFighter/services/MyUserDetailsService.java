@@ -3,10 +3,12 @@ package com.game.SoloFighter.services;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import com.game.SoloFighter.model.Users;
 import com.game.SoloFighter.repo.UserRepo;
 
+@Component
 public class MyUserDetailsService implements UserDetailsService{
 
     private final UserRepo userRepo;
